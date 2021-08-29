@@ -59,14 +59,14 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async (parent, args, context) => {
+        saveBook: async (parent, { bookToSave }, context) => {
             if (context.user) {
-                const savebook = await Book.create({ ...args, username: context.user.username });
-                await User.findByIdAndUpdate(
-                    { _id: context.user._id },
-                    { $push: { books: book._id } },
-                    { new: true }
-                );
+                const savebook =
+                    await User.findByIdAndUpdate(
+                        { _id: context.user._id },
+                        { $push: { savedBooks: bookToSave } },
+                        { new: true }
+                    );
                 return savebook;
             }
 
