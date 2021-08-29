@@ -39,10 +39,6 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    users: [User]
-    savedBooks: [Book]
-    user(username: String!): User
-    savedBooks(username: String): [Book]
   }  
 
   type Mutation {

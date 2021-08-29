@@ -14,22 +14,22 @@ const resolvers = {
             }
 
             throw new AuthenticationError('Not logged in');
-        },
-        user: async (parent, { username }) => {
-            return User.findOne({ username })
-                .select('-__v -password')
-                .populate('books')
-        },
-        books: async () => {
-            return Book.find().sort({ createdAt: -1 });
-        },
-        savedBooks: async (parent, { username, context }) => {
-            if (context.user) {
-                const params = username ? { username } : {};
-            }
-            return Book.find(params).sort({ createdAt: -1 });
-        },
-        // bookCount: async ({ username, context }) => {
+        }
+        // user: async (parent, { username }) => {
+        //     return User.findOne({ username })
+        //         .select('-__v -password')
+        //         .populate('books')
+        // },
+        // books: async () => {
+        //     return Book.find().sort({ createdAt: -1 });
+        // },
+        // savedBooks: async (parent, { username, context }) => {
+        //     if (context.user) {
+        //         const params = username ? { username } : {};
+        //     }
+        //     return Book.find(params).sort({ createdAt: -1 });
+        // },
+        // // bookCount: async ({ username, context }) => {
         //     if (context.user) {
         //         const bookData = await Book.countDocuments({ username });
         //     }
