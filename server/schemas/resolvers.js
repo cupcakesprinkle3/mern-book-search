@@ -20,21 +20,24 @@ const resolvers = {
                 .select('-__v -password')
                 .populate('books')
         },
+        books: async () => {
+            return Book.find().sort({ createdAt: -1 });
+        },
         savedBooks: async (parent, { username, context }) => {
             if (context.user) {
                 const params = username ? { username } : {};
             }
             return Book.find(params).sort({ createdAt: -1 });
         },
-        bookCount: async ({ username, context }) => {
-            if (context.user) {
-                const bookData = await Book.countDocuments({ username });
-            }
-            return bookData;
-        }
+        // bookCount: async ({ username, context }) => {
+        //     if (context.user) {
+        //         const bookData = await Book.countDocuments({ username });
+        //     }
+        //     return bookData;
+        // }
     },
     Mutation: {
-        createUser: async (parent, args) => {
+        addUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
 
